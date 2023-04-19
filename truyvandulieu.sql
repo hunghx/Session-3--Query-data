@@ -24,3 +24,8 @@ from order_detail
 group by product_id 
 having sum(quantity)>10
 order by sum(quantity);
+-- lấy ra hoá đơn nhiều tiền nhất
+select * from `order` where total = (select max(total) from `order`);
+select ou.fullname,ou.total,ou.createdDate from (select u.fullname,o.* from `user` u join `order` o on u.id = o.user_id) ou;
+-- lấy ra hoá đơn mua hàng lớn hơn 3 sản phẩm;
+select * from `order` where id not in (select order_id from order_detail group by order_id having count(product_id));
